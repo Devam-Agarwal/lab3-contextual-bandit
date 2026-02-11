@@ -1,74 +1,28 @@
-# Student Submission Checklist (Lab 3)
+# Lab 3: Contextual Bandit-Based News Recommendation System
 
-Before submitting your Lab 3 assignment, ensure that **all items below are completed**. Submissions that do not follow this checklist may receive partial or no credit.
-
----
-
-## 🔹 Repository and Branching
-
-* [ ] The repository is correctly created on GitHub.
-* [ ] All work is committed to **exactly one branch** named
-  `firstname_U20230xxx`.
-* [ ] **No work is pushed to `master`**.
-* [ ] The correct branch is pushed to GitHub.
+**Student:** Devam Agarwal | **Roll Number:** U20230138  
 
 ---
 
-## 🔹 Notebook Submission
+## Lab Report
 
-* [ ] Exactly **one** Jupyter Notebook (`.ipynb`) is submitted.
-* [ ] The notebook is placed at the **root of the repository**.
-* [ ] The notebook is named **exactly**:
-  `lab3_results_<roll_number>.ipynb`.
-* [ ] The notebook runs **top to bottom without errors**.
-* [ ] All outputs (plots, tables, metrics) are visible in the notebook.
+This project implements a contextual multi-armed bandit (CMAB) framework for personalized news recommendation.  
+First, a classification model is trained to predict the user category (**user_1, user_2, user_3**) from contextual features. The predicted context is then used to choose among **12 total arms** (3 contexts × 4 categories per context) using bandit algorithms.
 
----
+Models were trained using an **80/20 stratified train–validation split**. Since the feature matrix contained missing values, **median imputation** was applied (and scaling where required). The best classifier (Random Forest) was then used in a **10,000-step** bandit simulation to compare exploration strategies.
 
-## 🔹 Sampler Usage
-
-* [ ] The provided `sampler` package is used **without modification**.
-* [ ] The sampler is initialized using your correct roll number `i`.
-* [ ] Rewards are obtained **only** via `sampler.sample(j)`.
-* [ ] No hard-coded or synthetic rewards are used.
+Three bandit methods were evaluated: **Epsilon-Greedy**, **SoftMax**, and **UCB**. Overall, **UCB** achieved the highest average reward, showing strong performance due to principled uncertainty-based exploration.
 
 ---
 
-## 🔹 Contextual Bandit Implementation
+## Key Results
 
-* [ ] User category is treated as the **context**.
-* [ ] News category is treated as the **bandit arm**.
-* [ ] The arm index mapping follows the specification in the lab handout.
-* [ ] All three algorithms are implemented:
-
-  * Epsilon-Greedy
-  * Upper Confidence Bound (UCB)
-  * SoftMax
-
----
-
-## 🔹 Evaluation and Plots
-
-* [ ] Classification accuracy is reported on `test_users.csv`.
-* [ ] Reinforcement learning simulation is run for **T = 10,000 steps**.
-* [ ] Plots include:
-
-  * Average Reward vs. Time (per context)
-  * Hyperparameter comparison plots
-* [ ] All plots have labeled axes, legends, and titles.
+- **Classification Accuracy (Validation):** **0.9050** (Random Forest)
+- **Simulation Horizon:** **T = 10,000** steps per algorithm
+- **Best Algorithm:** **UCB (c = 1.0)** with **Avg Reward = 5.9469**
+- **Average Rewards (best settings):**
+  - **Epsilon-Greedy (ε = 0.05):** 5.6642  
+  - **SoftMax (τ = 1.0):** 5.7649  
+  - **UCB (c = 1.0):** 5.9469  
 
 ---
-
-## 🔹 README.md Requirements
-
-* [ ] README.md is present at the repository root.
-* [ ] It explains the overall approach and design decisions.
-* [ ] It summarizes key results and observations.
-* [ ] It includes clear instructions to reproduce the experiments.
-* [ ] All external references (if any) are properly cited.
-
----
-
-## Important Note
-
-> Submissions that do not follow the specified branch name, notebook naming convention, or sampler usage rules may not be evaluated.
